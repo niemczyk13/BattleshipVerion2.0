@@ -656,8 +656,8 @@ public class MainScreenController {
 
 	}
 	
-	private int randomStart() {
-		Random random = new Random();
-		return random.nextInt(2);
-	}
+//	private int randomStart() {
+//		Random random = new Random();
+//		return random.nextInt(2);
+//	}
 }
