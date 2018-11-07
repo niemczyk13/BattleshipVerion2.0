@@ -1,5 +1,6 @@
 package com.niemiec.objects;
 
+//współrzędne
 public class Coordinates {
 	private int x;
 	private int y;

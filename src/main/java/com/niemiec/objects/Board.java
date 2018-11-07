@@ -4,13 +4,6 @@ package com.niemiec.objects;
 //W grze pole 1,1 to w tablicy 0,0
 //Board - tablica
 public class Board {
-	// przechowuje stan p�l gry
-	// 0 - pusto
-	// 1 - pud�o
-	// 2 - statek
-	// 3 - trafiony
-	// 4 - wprowadzany - po wprowadzeniu zamieniany na 2
-	// box - pude�ko	
 	public static final int BOX_EMPTY = 0;
 	public static final int BOX_NOT_HIT = 1;
 	public static final int BOX_SHIP = 2;
@@ -37,14 +30,14 @@ public class Board {
 	private void resetArray(int[][] a) {
 		for (int i = 0; i < a.length; i++)
 			for (int j = 0; j < a[i].length; j++)
-				a[i][j] = 0;
+				a[i][j] = BOX_EMPTY;
 	}
 
-	public void check4To2() {
+	public void checkBoxEnterToBoxShip() {
 		for (int i = 0; i < boxes.length; i++)
 			for (int j = 0; j < boxes[i].length; j++)
-				if (boxes[i][j] == 4)
-					boxes[i][j] = 2;
+				if (boxes[i][j] == BOX_ENTER)
+					boxes[i][j] = BOX_SHIP;
 	}
 
 	// i jako X
@@ -67,9 +60,5 @@ public class Board {
 			System.out.println("");
 		}
 		System.out.println("");
-	}
-	
-	public void changeNearbyToFive(int[] box) {
-		
 	}
 }

@@ -1,18 +1,17 @@
 package com.niemiec.objects;
 
 public interface Player {
-	public final static boolean VIRTUAL_PLAYER = true;
-	public final static boolean REAL_PLAYER = false;
-
-	public boolean getInformationInThePlayerIsVirtual();
+	public final static int VIRTUAL_PLAYER = 0;
+	public final static int REAL_PLAYER = 1;
 	
 	public Board getBoard();
 	public Board getOpponentBoard();
 	
 	public int getSunkenShips();
-	public CollectionShips getCollectionShips();
 	public void increaseSunkenShips();
-	public String getName();
 	
-	public void addShipsAutomatically();
+	public CollectionShips getCollectionShips();
+	
+	public void addShips();
+	public boolean isVirtualPlayer();
 }
