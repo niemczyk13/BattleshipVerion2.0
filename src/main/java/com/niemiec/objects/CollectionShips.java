@@ -35,7 +35,7 @@ public class CollectionShips {
 		boardWithShipsIndex.viewBoard();
 	}
 
-	public boolean checkShip(Box box) {
+	public boolean checkShip(Coordinates box) {
 		int index = boardWithShipsIndex.getBox(box);
 		Ship ship = ships[index - 1];
 		ship.increaseCurrentNumberOfHitMasts();
@@ -46,7 +46,7 @@ public class CollectionShips {
 		return false;
 	}
 
-	public Ship getShip(Box box) {
+	public Ship getShip(Coordinates box) {
 		int index = boardWithShipsIndex.getBox(box);
 		return ships[index - 1];
 	}

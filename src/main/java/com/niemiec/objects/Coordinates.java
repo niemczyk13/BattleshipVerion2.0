@@ -1,10 +1,10 @@
 package com.niemiec.objects;
 
-public class Box {
+public class Coordinates {
 	private int x;
 	private int y;
 	
-	public Box(int x, int y) {
+	public Coordinates(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}

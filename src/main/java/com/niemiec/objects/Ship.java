@@ -29,11 +29,11 @@ public class Ship {
 		this.sunk = false;
 	}
 
-	public Box getBox(int numberOfMasts) {
-		return new Box(pointOnTheAxisX.get(numberOfMasts -1),  pointOnTheAxisY.get(numberOfMasts -1));
+	public Coordinates getBox(int numberOfMasts) {
+		return new Coordinates(pointOnTheAxisX.get(numberOfMasts -1),  pointOnTheAxisY.get(numberOfMasts -1));
 	}
 
-	public void setMast(Box box, int currentNumberOfMasts) {
+	public void setMast(Coordinates box, int currentNumberOfMasts) {
 		this.pointOnTheAxisX.add(box.getX());
 		this.pointOnTheAxisY.add(box.getY());
 

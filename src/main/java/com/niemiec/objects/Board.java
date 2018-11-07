@@ -10,7 +10,13 @@ public class Board {
 	// 2 - statek
 	// 3 - trafiony
 	// 4 - wprowadzany - po wprowadzeniu zamieniany na 2
-	// box - pude�ko
+	// box - pude�ko	
+	public static final int BOX_EMPTY = 0;
+	public static final int BOX_NOT_HIT = 1;
+	public static final int BOX_SHIP = 2;
+	public static final int BOX_HIT = 3;
+	public static final int BOX_ENTER = 4;
+	
 	int[][] boxes;
 
 	public Board() {
@@ -18,13 +24,12 @@ public class Board {
 		resetArray(boxes);
 	}
 
-	public int getBox(Box box) {
+	public int getBox(Coordinates box) {
 		return this.boxes[box.getY() - 1][box.getX() - 1];
-
 	}
 
 	// ustawia warto�� danej kom�rki
-	public void setBox(Box box, int stateOfBox) {
+	public void setBox(Coordinates box, int stateOfBox) {
 		this.boxes[box.getY() - 1][box.getX() - 1] = stateOfBox;
 	}
 
