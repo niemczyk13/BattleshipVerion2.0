@@ -4,13 +4,13 @@ package com.niemiec.objects;
 //W grze pole 1,1 to w tablicy 0,0
 //Board - tablica
 public class Board {
-	// przechowuje stan pól gry
+	// przechowuje stan pï¿½l gry
 	// 0 - pusto
-	// 1 - pud³o
+	// 1 - pudï¿½o
 	// 2 - statek
 	// 3 - trafiony
 	// 4 - wprowadzany - po wprowadzeniu zamieniany na 2
-	// box - pude³ko
+	// box - pudeï¿½ko
 	int[][] boxes;
 
 	public Board() {
@@ -18,18 +18,14 @@ public class Board {
 		resetArray(boxes);
 	}
 
-	public int getBox(int x, int y) {
-		return this.boxes[y - 1][x - 1];
+	public int getBox(Box box) {
+		return this.boxes[box.getY() - 1][box.getX() - 1];
 
 	}
-	
-	public int getBox(int[] box) {
-		return this.boxes[box[1] - 1][box[0] - 1];
-	}
 
-	// ustawia wartoœæ danej komórki
-	public void setBox(int x, int y, int stateOfBox) {
-		this.boxes[y - 1][x - 1] = stateOfBox;
+	// ustawia wartoï¿½ï¿½ danej komï¿½rki
+	public void setBox(Box box, int stateOfBox) {
+		this.boxes[box.getY() - 1][box.getX() - 1] = stateOfBox;
 	}
 
 	// Ustawia w tablicy same zera

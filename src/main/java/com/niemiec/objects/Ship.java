@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class Ship {
-	private List<Integer> xx;
-	private List<Integer> yy;
+	private List<Integer> pointOnTheAxisX;
+	private List<Integer> pointOnTheAxisY;
 
 	// private int x[];
 	// private int y[];
@@ -17,8 +17,8 @@ public class Ship {
 	private boolean sunk; // true, gdy zatopiony
 
 	public Ship(int numberOfMasts) {
-		this.xx = new ArrayList<Integer>();
-		this.yy = new ArrayList<Integer>();
+		this.pointOnTheAxisX = new ArrayList<Integer>();
+		this.pointOnTheAxisY = new ArrayList<Integer>();
 
 		// this.x = new int[numberOfMasts];
 		// this.y = new int[numberOfMasts];
@@ -29,19 +29,13 @@ public class Ship {
 		this.sunk = false;
 	}
 
-	public int getX(int numberOfMasts) {
-		// return x[numberOfMasts - 1];
-		return xx.get(numberOfMasts - 1);
+	public Box getBox(int numberOfMasts) {
+		return new Box(pointOnTheAxisX.get(numberOfMasts -1),  pointOnTheAxisY.get(numberOfMasts -1));
 	}
 
-	public int getY(int numberOfMasts) {
-		// return y[numberOfMasts - 1];
-		return yy.get(numberOfMasts - 1);
-	}
-
-	public void setMast(int x, int y, int currentNumberOfMasts) {
-		this.xx.add(x);
-		this.yy.add(y);
+	public void setMast(Box box, int currentNumberOfMasts) {
+		this.pointOnTheAxisX.add(box.getX());
+		this.pointOnTheAxisY.add(box.getY());
 
 		// this.x[currentNumberOfMasts - 1] = x;
 		// this.y[currentNumberOfMasts - 1] = y;
@@ -80,18 +74,14 @@ public class Ship {
 	}
 
 	public void sortMasts() {
-		if ((xx.get(1) - xx.get(0)) == 0)
-			Collections.sort(yy);
-		else if ((yy.get(1) - yy.get(0)) == 0)
-			Collections.sort(xx);
+		if ((pointOnTheAxisX.get(1) - pointOnTheAxisX.get(0)) == 0)
+			Collections.sort(pointOnTheAxisY);
+		else if ((pointOnTheAxisY.get(1) - pointOnTheAxisY.get(0)) == 0)
+			Collections.sort(pointOnTheAxisX);
 	}
 
 	public int getCurrentNumberOfHitMasts() {
 		return currentNumberOfHitMasts;
-	}
-
-	public void setCurrentNumberOfHitMasts(int currentNumberOfHitMasts) {
-		this.currentNumberOfHitMasts = currentNumberOfHitMasts;
 	}
 	
 	public void increaseCurrentNumberOfHitMasts() {
