@@ -35,7 +35,7 @@ public class CollectionShips {
 		boardWithShipsIndex.viewBoard();
 	}
 
-	public boolean checkShip(Coordinates box) {
+	public boolean shipIsSunk(Coordinates box) {
 		int index = boardWithShipsIndex.getBox(box);
 		Ship ship = ships[index - 1];
 		ship.increaseCurrentNumberOfHitMasts();
