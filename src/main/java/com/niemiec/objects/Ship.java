@@ -13,8 +13,6 @@ public class Ship {
 	private List<Integer> pointOnTheAxisX;
 	private List<Integer> pointOnTheAxisY;
 
-	// private int x[];
-	// private int y[];
 	private int numberOfMasts; // maksymalna ilo�� maszt�w
 	private int currentNumberOfMasts; // aktualna ilo�� zbudowanych maszt�w
 	private int currentNumberOfHitMasts; // aktualna ilo�� trafionych maszt�w
@@ -24,9 +22,6 @@ public class Ship {
 	public Ship(int numberOfMasts) {
 		this.pointOnTheAxisX = new ArrayList<Integer>();
 		this.pointOnTheAxisY = new ArrayList<Integer>();
-
-		// this.x = new int[numberOfMasts];
-		// this.y = new int[numberOfMasts];
 		this.currentNumberOfMasts = 0;
 		this.currentNumberOfHitMasts = 0;
 		this.numberOfMasts = numberOfMasts;
@@ -41,11 +36,7 @@ public class Ship {
 	public void setMast(Coordinates box, int currentNumberOfMasts) {
 		this.pointOnTheAxisX.add(box.getX());
 		this.pointOnTheAxisY.add(box.getY());
-
-		// this.x[currentNumberOfMasts - 1] = x;
-		// this.y[currentNumberOfMasts - 1] = y;
 		this.currentNumberOfMasts++;
-
 		if (this.currentNumberOfMasts > 1)
 			sortMasts();
 	}
