@@ -616,12 +616,9 @@ public class MainScreenController {
 	private Button ob99;
 
 	public MainScreenController() {
-		// okno z pobraniem nazwy
 
 	}
 
-	// funkcja zaczynająca grę od początku
-	// wywoływana na starcie i po wciśnięciu przycisku zacznik od nowa
 	@FXML
 	void startGame() {
 		
@@ -633,9 +630,6 @@ public class MainScreenController {
 	
 	}
 
-	// po wciśnięciu tego przyciusku wykonuje się kolejka zarówno gracza, jak i
-	// komputera
-	// jeżeli przyciski odblokowane to zaczyna się kolejka gracza
 	@FXML
 	void opponentButtonAction(ActionEvent event) {
 

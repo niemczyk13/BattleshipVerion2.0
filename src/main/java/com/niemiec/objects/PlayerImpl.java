@@ -44,7 +44,8 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public void addShips() {
-		ShipsCreator.addShips(isVirtualPlayer(), collectionShips);
+		ShipsCreator shipsCreator = new ShipsCreator(isVirtualPlayer(), collectionShips);
+		shipsCreator.addShips(isVirtualPlayer(), collectionShips);
 	}
 
 	@Override
