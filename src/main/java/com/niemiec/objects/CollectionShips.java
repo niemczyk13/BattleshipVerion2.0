@@ -35,17 +35,17 @@ public class CollectionShips {
 		boardWithShipsIndex.viewBoard();
 	}
 
-	//rozdzielić dwie operacje
-	//najpierw zwiększenie trafionych masztów - czyli trafiony statek
-	//następnie sprawdzenie czy zatopiony
 	public boolean shipIsSunk(Coordinates box) {
+		Ship ship = ships[getShipIndexFromBoard(box) - 1];
+		return ship.getSunk();
+	}
+	
+	public void shipWasHit(Coordinates box) {
 		Ship ship = ships[getShipIndexFromBoard(box) - 1];
 		ship.increaseCurrentNumberOfHitMasts();
 		if (ship.getCurrentNumberOfHitMasts() == ship.getNumberOfMasts()) {
 			ship.setSunkTrue();
-			return true;
 		}
-		return false;
 	}
 	
 	private int getShipIndexFromBoard(Coordinates box) {
