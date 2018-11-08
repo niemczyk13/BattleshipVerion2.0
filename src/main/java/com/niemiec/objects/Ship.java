@@ -5,6 +5,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class Ship {
+	public static final int SHIP_WAY_NO_SPACE = 0;
+	public static final int SHIP_WAY_X = 1;
+	public static final int SHIP_WAY_Y = 2;
+	public static final int SHIP_WAY_XY = 3;
+	
 	private List<Integer> pointOnTheAxisX;
 	private List<Integer> pointOnTheAxisY;
 
@@ -29,7 +34,7 @@ public class Ship {
 		this.sunk = false;
 	}
 
-	public Coordinates getBox(int numberOfMasts) {
+	public Coordinates getCoordinates(int numberOfMasts) {
 		return new Coordinates(pointOnTheAxisX.get(numberOfMasts -1),  pointOnTheAxisY.get(numberOfMasts -1));
 	}
 

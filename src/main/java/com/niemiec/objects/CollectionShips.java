@@ -18,7 +18,7 @@ public class CollectionShips {
 	public void addShip(Ship ship) {
 		ships[currentlyNumberOfShips++] = ship;
 		for (int i = 1; i <= ship.getNumberOfMasts(); i++) {
-			boardWithShipsIndex.setBox(ship.getBox(i), currentlyNumberOfShips);
+			boardWithShipsIndex.setBox(ship.getCoordinates(i), currentlyNumberOfShips);
 		}
 //		System.out.println("FUNKCJA COLLECTIONSHIPS, STATEK DODANO! currentlyNumberOfShips: " + currentlyNumberOfShips);
 	}
@@ -28,7 +28,7 @@ public class CollectionShips {
 			Ship ship = ships[i];
 			System.out.print("Statek " + ship.getNumberOfMasts() + ", posiada wsp�rz�dne: ");
 			for (int j = 1; j <= ship.getNumberOfMasts(); j++) {
-				System.out.print("x" + j + ": " + ship.getBox(j).getX() + ", y" + j + ": " + ship.getBox(j).getY() +"; ");
+				System.out.print("x" + j + ": " + ship.getCoordinates(j).getX() + ", y" + j + ": " + ship.getCoordinates(j).getY() +"; ");
 			}
 			System.out.println("");	
 		}
