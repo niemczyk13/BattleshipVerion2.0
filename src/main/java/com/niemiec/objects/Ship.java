@@ -45,11 +45,6 @@ public class Ship {
 		return this.sunk;
 	}
 
-	public void checkSunk() {
-		if (currentNumberOfHitMasts == numberOfMasts)
-			this.sunk = true;
-	}
-
 	public int getNumberOfMasts() {
 		return this.numberOfMasts;
 	}
@@ -83,6 +78,16 @@ public class Ship {
 	
 	public void increaseCurrentNumberOfHitMasts() {
 		this.currentNumberOfHitMasts++;
+	}
+
+	public void hit() {
+		this.currentNumberOfHitMasts++;
+		setSunk();
+	}
+
+	private void setSunk() {
+		if (currentNumberOfHitMasts == numberOfMasts)
+			this.sunk = true;
 	}
 	
 }

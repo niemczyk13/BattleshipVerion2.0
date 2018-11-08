@@ -42,8 +42,7 @@ public class CollectionShips {
 	
 	public void shipWasHit(Coordinates box) {
 		Ship ship = ships[getShipIndexFromBoard(box) - 1];
-		ship.increaseCurrentNumberOfHitMasts();
-		ship.checkSunk();
+		ship.hit();
 	}
 	
 	private int getShipIndexFromBoard(Coordinates box) {
