@@ -657,7 +657,7 @@ public class MainScreenController {
 
 	@FXML
 	void setAutomaticallySpacingOfShips() {
-		gameLogic.setAutomaticallySpacingOfShips();
+		gameLogic.setAutomaticallySpacingOfShips(true);
 		startGame();
 	}
 	

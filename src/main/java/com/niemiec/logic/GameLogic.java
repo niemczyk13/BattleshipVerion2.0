@@ -9,7 +9,7 @@ public class GameLogic {
 		return false;
 	}
 
-	public void setAutomaticallySpacingOfShips() {
+	public void setAutomaticallySpacingOfShips(boolean b) {
 		// TODO Auto-generated method stub
 		
 	}
