@@ -1,6 +1,7 @@
 package com.niemiec.controllers;
 
 import com.niemiec.logic.GameLogic;
+import com.niemiec.objects.Player;
 
 //import java.util.Random;
 
@@ -616,19 +617,26 @@ public class MainScreenController {
 
 	@FXML
 	private Button ob99;
+	
+	private GameLogic gameLogic;
 
 	public MainScreenController() {
-
+		startGame();
+		opponentBorder.setDisable(true);
 	}
+	
 
 	@FXML
 	void startGame() {
-		GameLogic gameLogic = new GameLogic();
+		gameLogic = new GameLogic();
 	}
 
 	@FXML
 	void myButtonAction(ActionEvent event) {
-	
+		if (gameLogic.addShips(Player.REAL_PLAYER, event.getSource())) {
+			myBorder.setDisable(true);
+			opponentBorder.setDisable(false);
+		}
 	}
 
 	@FXML
@@ -638,8 +646,8 @@ public class MainScreenController {
 
 	@FXML
 	void initialize() {
-		opponentBorder.setDisable(true);
-		startGame();
+		
+		
 	}
 
 	@FXML
@@ -649,7 +657,8 @@ public class MainScreenController {
 
 	@FXML
 	void setAutomaticallySpacingOfShips() {
-
+		gameLogic.setAutomaticallySpacingOfShips();
+		startGame();
 	}
 	
 //	private int randomStart() {
