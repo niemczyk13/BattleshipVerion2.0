@@ -1,5 +1,7 @@
 package com.niemiec.controllers;
 
+import com.niemiec.logic.GameLogic;
+
 //import java.util.Random;
 
 import javafx.event.ActionEvent;
@@ -621,8 +623,7 @@ public class MainScreenController {
 
 	@FXML
 	void startGame() {
-		
-
+		GameLogic gameLogic = new GameLogic();
 	}
 
 	@FXML
@@ -638,6 +639,7 @@ public class MainScreenController {
 	@FXML
 	void initialize() {
 		opponentBorder.setDisable(true);
+		startGame();
 	}
 
 	@FXML
