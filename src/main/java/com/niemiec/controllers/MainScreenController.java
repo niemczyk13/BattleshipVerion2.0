@@ -1,10 +1,6 @@
 package com.niemiec.controllers;
 
 import com.niemiec.logic.GameLogic;
-import com.niemiec.objects.Player;
-
-//import java.util.Random;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -617,37 +613,29 @@ public class MainScreenController {
 
 	@FXML
 	private Button ob99;
-	
+
 	private GameLogic gameLogic;
 
 	public MainScreenController() {
-		startGame();
-		opponentBorder.setDisable(true);
-	}
-	
-
-	@FXML
-	void startGame() {
-		gameLogic = new GameLogic();
+		gameLogic = new GameLogic(myBorder, opponentBorder);
+		gameLogic.startNewGame();
 	}
 
 	@FXML
 	void myButtonAction(ActionEvent event) {
-		if (gameLogic.addShips(Player.REAL_PLAYER, event.getSource())) {
-			myBorder.setDisable(true);
-			opponentBorder.setDisable(false);
-		}
+		gameLogic.addShips(event.getSource());
+
 	}
 
 	@FXML
 	void opponentButtonAction(ActionEvent event) {
+		gameLogic.shot(event.getSource());
 
 	}
 
 	@FXML
 	void initialize() {
-		
-		
+
 	}
 
 	@FXML
@@ -657,10 +645,17 @@ public class MainScreenController {
 
 	@FXML
 	void setAutomaticallySpacingOfShips() {
-		gameLogic.setAutomaticallySpacingOfShips(true);
-		startGame();
+		boolean auto = gameLogic.getAutomaticallySpacingOfShips;
+		gameLogic.setAutomaticallySpacingOfShips(!auto);
+
+		gameLogic.startNewGame();
 	}
-	
+
+	@FXML
+	public void startGame() {
+		gameLogic.startNewGame();
+	}
+
 //	private int randomStart() {
 //		Random random = new Random();
 //		return random.nextInt(2);
