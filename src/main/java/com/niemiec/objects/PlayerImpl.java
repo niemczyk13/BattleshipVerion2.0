@@ -1,7 +1,5 @@
 package com.niemiec.objects;
 
-import com.niemiec.logic.ShipsCreator;
-
 public class PlayerImpl implements Player {
 	private Board board;
 	private Board opponentBoard;
@@ -17,7 +15,6 @@ public class PlayerImpl implements Player {
 		this.sunkenShips = 0;
 	}
 
-	@Override
 	public Board getBoard() {
 		return board;
 	}
@@ -42,11 +39,11 @@ public class PlayerImpl implements Player {
 		return collectionShips;
 	}
 
-	@Override
-	public void addShips() {
-		ShipsCreator shipsCreator = new ShipsCreator(isVirtualPlayer(), collectionShips);
-		shipsCreator.addShips(isVirtualPlayer(), collectionShips);
-	}
+//	@Override
+//	public void addShips() {
+//		ShipsCreator shipsCreator = new ShipsCreator(isVirtualPlayer(), collectionShips);
+//		shipsCreator.addShips(isVirtualPlayer(), collectionShips);
+//	}
 
 	@Override
 	public boolean isVirtualPlayer() {

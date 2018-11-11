@@ -29,6 +29,10 @@ public class BorderManagement {
 		drawInMyBorderButton(opponentBorder.getChildren(), null);
 	}
 	
+	public void drawInMyBorder(Player player) {
+		drawInMyBorderButton(myBorder.getChildren(), player);
+	}
+	
 	private void drawInMyBorderButton(ObservableList<Node> obervableList, Player player) {
 		for (int y = 0; y < 10; y++) {	
 			HBox hbox = (HBox) obervableList.get(y);
@@ -56,6 +60,10 @@ public class BorderManagement {
 	public void setBordersToStartShot() {
 		myBorder.setDisable(true);
 		opponentBorder.setDisable(false);
+	}
+
+	public void realPlayerAddedShipsAutomatically() {
+		myBorder.setDisable(true);
 	}
 	
 }

@@ -12,6 +12,6 @@ public interface Player {
 	
 	public CollectionShips getCollectionShips();
 	
-	public void addShips();
+//	public void addShips();
 	public boolean isVirtualPlayer();
 }

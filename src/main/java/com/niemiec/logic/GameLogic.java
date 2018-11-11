@@ -18,13 +18,22 @@ public class GameLogic {
 	public GameLogic(VBox myBorder, VBox opponentBorder) {
 		this.borderManagement = new BorderManagement(myBorder, opponentBorder);
 		this.automaticallySpacingOfShips = false;
-		this.addShips = new AddShips(borderManagement, realPlayer, virtualPlayer);
+		this.addShips = new AddShips();
 	}
 
 	public void startNewGameWithVirtualPlayer() {
-		createPlayers();
+		managePlayers();
 		borderManagement.startNewGameWithVirtualPlayer();
-		addShips.addShips();
+//		addShips.addShipsAutomatically(Player.VIRTUAL_PLAYER);
+		if (automaticallySpacingOfShips) {
+			addShips.addShipsAutomatically(Player.REAL_PLAYER);
+			borderManagement.realPlayerAddedShipsAutomatically();
+		}
+	}
+	
+	private void managePlayers() {
+		createPlayers();
+		addShips.addPlayers(realPlayer, virtualPlayer);
 	}
 
 	private void createPlayers() {
@@ -33,9 +42,10 @@ public class GameLogic {
 	}
 
 	public void addShips(ActionEvent event) {
-		if (addShips.addShips(Player.REAL_PLAYER, event)) {
+		if (addShips.addShipsManually(Player.REAL_PLAYER, event)) {
 			borderManagement.setBordersToStartShot();
 		}
+		borderManagement.drawInMyBorder(realPlayer);
 	}
 
 	public boolean shot(ActionEvent source) {
