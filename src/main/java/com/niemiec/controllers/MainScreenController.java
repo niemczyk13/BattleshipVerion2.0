@@ -616,26 +616,25 @@ public class MainScreenController {
 
 	private GameLogic gameLogic;
 
-	public MainScreenController() {
+	@FXML
+	void initialize() {
 		gameLogic = new GameLogic(myBorder, opponentBorder);
-		gameLogic.startNewGame();
+		gameLogic.startNewGameWithVirtualPlayer();
 	}
+
+
+	public MainScreenController() {
+	}
+
 
 	@FXML
 	void myButtonAction(ActionEvent event) {
-		gameLogic.addShips(event.getSource());
-
+		gameLogic.addShips(event);
 	}
 
 	@FXML
 	void opponentButtonAction(ActionEvent event) {
-		gameLogic.shot(event.getSource());
-
-	}
-
-	@FXML
-	void initialize() {
-
+		gameLogic.shot(event);
 	}
 
 	@FXML
@@ -645,15 +644,15 @@ public class MainScreenController {
 
 	@FXML
 	void setAutomaticallySpacingOfShips() {
-		boolean auto = gameLogic.getAutomaticallySpacingOfShips;
+		boolean auto = gameLogic.getAutomaticallySpacingOfShips();
 		gameLogic.setAutomaticallySpacingOfShips(!auto);
 
-		gameLogic.startNewGame();
+		gameLogic.startNewGameWithVirtualPlayer();
 	}
 
 	@FXML
 	public void startGame() {
-		gameLogic.startNewGame();
+		gameLogic.startNewGameWithVirtualPlayer();
 	}
 
 //	private int randomStart() {

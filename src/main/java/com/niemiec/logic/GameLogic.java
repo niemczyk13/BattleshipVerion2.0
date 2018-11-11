@@ -1,37 +1,53 @@
 package com.niemiec.logic;
 
+import com.niemiec.objects.Player;
+import com.niemiec.objects.PlayerImpl;
+
+import javafx.event.ActionEvent;
 import javafx.scene.layout.VBox;
 
 //przechowuje cały stan o aktualej grze
 //gdy zaczynamy grę na nowo to MainScreenController tworzy nowy obiekt
 public class GameLogic {
-	
-	
-
-	public boolean getAutomaticallySpacingOfShips;
+	private BorderManagement borderManagement;
+	private boolean automaticallySpacingOfShips;
+	private Player realPlayer;
+	private Player virtualPlayer;
+	private AddShips addShips;
 
 	public GameLogic(VBox myBorder, VBox opponentBorder) {
-		// TODO Auto-generated constructor stub
+		this.borderManagement = new BorderManagement(myBorder, opponentBorder);
+		this.automaticallySpacingOfShips = false;
+		this.addShips = new AddShips(borderManagement, realPlayer, virtualPlayer);
 	}
 
-	public boolean addShips(Object source) {
+	public void startNewGameWithVirtualPlayer() {
+		createPlayers();
+		borderManagement.startNewGameWithVirtualPlayer();
+		addShips.addShips();
+	}
+
+	private void createPlayers() {
+		realPlayer = new PlayerImpl(Player.REAL_PLAYER);
+		virtualPlayer = new PlayerImpl(Player.VIRTUAL_PLAYER);
+	}
+
+	public void addShips(ActionEvent event) {
+		if (addShips.addShips(Player.REAL_PLAYER, event)) {
+			borderManagement.setBordersToStartShot();
+		}
+	}
+
+	public boolean shot(ActionEvent source) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public void setAutomaticallySpacingOfShips(boolean b) {
-		// TODO Auto-generated method stub
-		
+		this.automaticallySpacingOfShips = b;
 	}
 
-	public boolean shot(Object source) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean getAutomaticallySpacingOfShips() {
+		return automaticallySpacingOfShips;
 	}
-
-	public void startNewGame() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
