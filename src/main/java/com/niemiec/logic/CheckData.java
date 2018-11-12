@@ -9,7 +9,7 @@ public class CheckData {
 	private static final int checkWayY = 2;
 	private static Board board;
 	private static Ship ship;
-	private static int sumCheckWay;
+	private static int sumCheckDirection;
 
 	public static boolean checkIfBoxIsEmpty(Coordinates coordinates) {
 		if (board.getBox(coordinates) == Board.BOX_EMPTY)
@@ -33,15 +33,73 @@ public class CheckData {
 		} else {
 			return true;
 		}
-		
+
+	}
+
+	public static boolean checkIfTheNextIsTheGoodWay(Coordinates coordinates) {
+		if (shipNonOneMastedAndHaveAddedMastAndHaveDirection()) {
+			return checkWhetherTheChosenDirectionIsAcceptable(coordinates);
+		}
+		return true;
+	}
+
+	private static boolean checkWhetherTheChosenDirectionIsAcceptable(Coordinates coordinates) {
+		for (int i = ship.getCurrentNumberOfMasts(); i > 0; i--) {
+			int x = ship.getCoordinates(i).getX();
+			int y = ship.getCoordinates(i).getY();
+			if (checkEveryDirection(coordinates, x, y))
+				return true;
+		}
+		return false;
+	}
+
+	private static boolean checkEveryDirection(Coordinates coordinates, int x, int y) {
+		if (checkTheDirectionOnTheShip(Ship.SHIP_DIRECTION_X))
+			return checkDirection(coordinates.getX(), x, coordinates.getY(), y);
+		if (checkTheDirectionOnTheShip(Ship.SHIP_DIRECTION_Y))
+			return checkDirection(coordinates.getY(), y, coordinates.getX(), x);
+		if (checkTheDirectionOnTheShip(Ship.SHIP_DIRECTION_XY)) {
+			return checkDirectionXY(coordinates, x, y);
+		}
+		return false;
+	}
+
+	private static boolean checkDirectionXY(Coordinates coordinates, int x, int y) {
+		if (checkDirection(coordinates.getX(), x, coordinates.getY(), y)) {
+			ship.setDirection(Ship.SHIP_DIRECTION_X);
+			return true;
+		}
+		if (checkDirection(coordinates.getY(), y, coordinates.getX(), x)) {
+			ship.setDirection(Ship.SHIP_DIRECTION_Y);
+			return true;
+		}
+		return false;
+	}
+
+	private static boolean checkDirection(int coordinate, int changeCoordinate, int staticCoordinate,
+			int changeStaticCoordinate) {
+		int rightAndDown = 1;
+		int LeftAndTop = -1;
+		return (((changeCoordinate - coordinate) == rightAndDown
+				|| (changeCoordinate - coordinate) == LeftAndTop)
+				&& (changeStaticCoordinate - staticCoordinate) == 0);
+	}
+
+	private static boolean checkTheDirectionOnTheShip(int checkedDirection) {
+		return ship.getDirection() == checkedDirection;
+	}
+
+	private static boolean shipNonOneMastedAndHaveAddedMastAndHaveDirection() {
+		return (ship.getNumberOfMasts() != 1 && ship.getCurrentNumberOfMasts() != 0
+				&& ship.getDirection() != Ship.SHIP_DIRECTION_NO_SPACE);
 	}
 
 	private static boolean shipNotOneMastedAndWithoutWay() {
-		return (ship.getNumberOfMasts() != 1 && ship.getWay() == Ship.SHIP_WAY_NO_SPACE);
+		return (ship.getNumberOfMasts() != 1 && ship.getDirection() == Ship.SHIP_DIRECTION_NO_SPACE);
 	}
-	
+
 	private static boolean checkPlaceStart(Coordinates coordinates) {
-		sumCheckWay = 0;
+		sumCheckDirection = 0;
 		loopToCheckThePlace(coordinates, CheckData.checkWayX);
 		loopToCheckThePlace(coordinates, CheckData.checkWayY);
 		return checkWay();
@@ -58,7 +116,7 @@ public class CheckData {
 		int extremePoint = (-ship.getNumberOfMasts()) + i;
 		for (; extremePoint <= 0; extremePoint++) {
 			if (checkWillTheShipFitFromExtremePoint(coordinates, checkNextXorY, extremePoint)) {
-				sumCheckWay += checkNextXorY;
+				sumCheckDirection += checkNextXorY;
 				return true;
 			}
 		}
@@ -66,12 +124,13 @@ public class CheckData {
 		return false;
 	}
 
-	private static boolean checkWillTheShipFitFromExtremePoint(Coordinates coordinates, int checkNextXorY, int extremePoint) {
+	private static boolean checkWillTheShipFitFromExtremePoint(Coordinates coordinates, int checkNextXorY,
+			int extremePoint) {
 		int counterMasts = 0;
 		for (int k = 0; k < ship.getNumberOfMasts(); k++) {
 			int mast = k + extremePoint;
 			if (checkCanYouPutAMast(coordinates, checkNextXorY, mast))
-				counterMasts++;	
+				counterMasts++;
 			else
 				break;
 		}
@@ -91,25 +150,25 @@ public class CheckData {
 		Coordinates toCheck = new Coordinates(coordinates.getX() + addedToX, coordinates.getY() + addedToY);
 		return checkTheBoxesNextIsGood(toCheck);
 	}
-	
+
 	private static boolean checkTheBoxesNextIsGood(Coordinates coordinates) {
 		return (checkIfWithinThePlayingField(coordinates) && checkIfAroundOneIsEmpty(coordinates)
 				&& checkIfTheFieldIsEquals(coordinates, Board.BOX_EMPTY));
 	}
 
 	private static boolean checkWay() {
-		switch (sumCheckWay) {
+		switch (sumCheckDirection) {
 		case 0:
-			ship.setWay(Ship.SHIP_WAY_NO_SPACE);
+			ship.setDirection(Ship.SHIP_DIRECTION_NO_SPACE);
 			return false;
 		case 1:
-			ship.setWay(Ship.SHIP_WAY_X);
+			ship.setDirection(Ship.SHIP_DIRECTION_X);
 			return true;
 		case 2:
-			ship.setWay(Ship.SHIP_WAY_Y);
+			ship.setDirection(Ship.SHIP_DIRECTION_Y);
 			return true;
 		case 3:
-			ship.setWay(Ship.SHIP_WAY_XY);
+			ship.setDirection(Ship.SHIP_DIRECTION_XY);
 			return true;
 		default:
 			return false;
@@ -117,7 +176,8 @@ public class CheckData {
 	}
 
 	private static boolean itsEmptyNextTo(Coordinates coordinates, int i, int j) {
-		if (!ijEqualsZero(i, j) && (checkIfWithinThePlayingField(coordinates, i, j) && itsEqualsArgNextTo(coordinates, i, j, Board.BOX_SHIP)))
+		if (!ijEqualsZero(i, j) && (checkIfWithinThePlayingField(coordinates, i, j)
+				&& itsEqualsArgNextTo(coordinates, i, j, Board.BOX_SHIP)))
 			return true;
 		else
 			return false;
@@ -135,7 +195,7 @@ public class CheckData {
 	private static boolean checkIfTheFieldIsEquals(Coordinates coordinates, int boxForCheck) {
 		return (board.getBox(coordinates) == boxForCheck);
 	}
-	
+
 	private static boolean checkIfWithinThePlayingField(Coordinates coordinates) {
 		int x = coordinates.getX();
 		int y = coordinates.getY();

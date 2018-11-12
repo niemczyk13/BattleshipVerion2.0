@@ -105,7 +105,7 @@ public class AddShips {
 		 if (!CheckData.checkIfBoxIsEmpty(coordinates)) return false;
 		 if (!CheckData.checkIfAroundOneIsEmpty(coordinates)) return false;
 		 if (!CheckData.checkIsThereAPlace(coordinates)) return false;
-		// if (!checkIfTheNextIsTheGoodWay()) return false;
+		 if (!CheckData.checkIfTheNextIsTheGoodWay(coordinates)) return false;
 		return true;
 	}
 

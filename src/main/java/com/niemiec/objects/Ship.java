@@ -5,10 +5,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class Ship {
-	public static final int SHIP_WAY_NO_SPACE = 0;
-	public static final int SHIP_WAY_X = 1;
-	public static final int SHIP_WAY_Y = 2;
-	public static final int SHIP_WAY_XY = 3;
+	public static final int SHIP_DIRECTION_NO_SPACE = 0;
+	public static final int SHIP_DIRECTION_X = 1;
+	public static final int SHIP_DIRECTION_Y = 2;
+	public static final int SHIP_DIRECTION_XY = 3;
 	
 	private List<Integer> pointOnTheAxisX;
 	private List<Integer> pointOnTheAxisY;
@@ -16,7 +16,7 @@ public class Ship {
 	private int numberOfMasts; // maksymalna ilo�� maszt�w
 	private int currentNumberOfMasts; // aktualna ilo�� zbudowanych maszt�w
 	private int currentNumberOfHitMasts; // aktualna ilo�� trafionych maszt�w
-	private int way; // 0 - brak, 1 - wzd�� x, 2 - wzd�� y, 3 - w obie strony
+	private int direction; // 0 - brak, 1 - wzd�� x, 2 - wzd�� y, 3 - w obie strony
 	private boolean sunk; // true, gdy zatopiony
 
 	public Ship(int numberOfMasts) {
@@ -25,7 +25,7 @@ public class Ship {
 		this.currentNumberOfMasts = 0;
 		this.currentNumberOfHitMasts = 0;
 		this.numberOfMasts = numberOfMasts;
-		this.way = 0;
+		this.direction = 0;
 		this.sunk = false;
 	}
 
@@ -49,12 +49,12 @@ public class Ship {
 		return this.numberOfMasts;
 	}
 
-	public int getWay() {
-		return this.way;
+	public int getDirection() {
+		return this.direction;
 	}
 
-	public void setWay(int way) {
-		this.way = way;
+	public void setDirection(int direction) {
+		this.direction = direction;
 	}
 
 	public int getCurrentNumberOfMasts() {
