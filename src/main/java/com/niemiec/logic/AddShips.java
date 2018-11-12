@@ -54,6 +54,12 @@ public class AddShips {
 		checkIfTheShipHasBeenAdded();
 	}
 
+	private void addMast() {
+		if (checkDataAddingTheMast()) {
+			fillInTheShipDetails();
+		}
+	}
+
 	private void checkIfTheShipHasBeenAdded() {
 		if (hasAllMastsBeenAdded()) {
 			updateData();	
@@ -87,12 +93,6 @@ public class AddShips {
 		return currentMast == quantityShipsAndMasts[currentQuantityShipsOfGivenType];
 	}
 
-	private void addMast() {
-		if (checkDataAddingTheMast()) {
-			fillInTheShipDetails();
-		}
-	}
-
 	private void fillInTheShipDetails() {
 		currentMast++;
 		players[actualPlayer].getBoard().setBox(coordinates, Board.BOX_ENTER);
@@ -101,11 +101,11 @@ public class AddShips {
 
 	private boolean checkDataAddingTheMast() {
 		// TODO Auto-generated method stub
-		// if (!checkIfBoxIsEmpty()) return false;
-		// if (!checkIfAroundOneIsEmpty()) return false;
-		// if (!checkIsThereAPlace()) return false;
+		CheckData.setVariablesToCheckData(players[actualPlayer].getBoard(), ship);
+		 if (!CheckData.checkIfBoxIsEmpty(coordinates)) return false;
+		 if (!CheckData.checkIfAroundOneIsEmpty(coordinates)) return false;
+		 if (!CheckData.scheckIsThereAPlace(coordinates)) return false;
 		// if (!checkIfTheNextIsTheGoodWay()) return false;
-
 		return true;
 	}
 
