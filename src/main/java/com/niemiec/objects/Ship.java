@@ -89,5 +89,4 @@ public class Ship {
 		if (currentNumberOfHitMasts == numberOfMasts)
 			this.sunk = true;
 	}
-	
 }

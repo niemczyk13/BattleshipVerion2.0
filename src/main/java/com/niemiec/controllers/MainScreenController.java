@@ -639,7 +639,7 @@ public class MainScreenController {
 	@FXML
 	void close() {
 
-	}
+	} 
 
 	@FXML
 	void setAutomaticallySpacingOfShips() {

@@ -196,7 +196,7 @@ public class CheckData {
 		return (board.getBox(coordinates) == boxForCheck);
 	}
 
-	private static boolean checkIfWithinThePlayingField(Coordinates coordinates) {
+	public static boolean checkIfWithinThePlayingField(Coordinates coordinates) {
 		int x = coordinates.getX();
 		int y = coordinates.getY();
 
@@ -206,7 +206,7 @@ public class CheckData {
 		return false;
 	}
 
-	private static boolean checkIfWithinThePlayingField(Coordinates coordinates, int addedToX, int addedToY) {
+	public static boolean checkIfWithinThePlayingField(Coordinates coordinates, int addedToX, int addedToY) {
 		int xPlus = coordinates.getX() + addedToX;
 		int yPlus = coordinates.getY() + addedToY;
 
