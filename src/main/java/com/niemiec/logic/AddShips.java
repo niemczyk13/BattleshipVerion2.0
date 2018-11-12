@@ -104,7 +104,7 @@ public class AddShips {
 		CheckData.setVariablesToCheckData(players[actualPlayer].getBoard(), ship);
 		 if (!CheckData.checkIfBoxIsEmpty(coordinates)) return false;
 		 if (!CheckData.checkIfAroundOneIsEmpty(coordinates)) return false;
-		 if (!CheckData.scheckIsThereAPlace(coordinates)) return false;
+		 if (!CheckData.checkIsThereAPlace(coordinates)) return false;
 		// if (!checkIfTheNextIsTheGoodWay()) return false;
 		return true;
 	}

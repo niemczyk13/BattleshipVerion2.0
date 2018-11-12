@@ -5,14 +5,14 @@ import com.niemiec.objects.Coordinates;
 import com.niemiec.objects.Ship;
 
 public class CheckData {
-	private static final int checkAxisX = 1;
-	private static final int checkAxisY = 2;
+	private static final int checkWayX = 1;
+	private static final int checkWayY = 2;
 	private static Board board;
 	private static Ship ship;
-	private static int sumWay;
+	private static int sumCheckWay;
 
 	public static boolean checkIfBoxIsEmpty(Coordinates coordinates) {
-		if (board.getBox(coordinates) == 0)
+		if (board.getBox(coordinates) == Board.BOX_EMPTY)
 			return true;
 		return false;
 	}
@@ -27,16 +27,24 @@ public class CheckData {
 		return true;
 	}
 
-	public static boolean scheckIsThereAPlace(Coordinates coordinates) {
-		if (ship.getNumberOfMasts() != 1 && ship.getWay() == Ship.SHIP_WAY_NO_SPACE) {
-			sumWay = 0;
-			loopToCheckThePlace(coordinates, CheckData.checkAxisX);
-			loopToCheckThePlace(coordinates, CheckData.checkAxisY);
-			return checkWay();
+	public static boolean checkIsThereAPlace(Coordinates coordinates) {
+		if (shipNotOneMastedAndWithoutWay()) {
+			return checkPlaceStart(coordinates);
 		} else {
 			return true;
 		}
 		
+	}
+
+	private static boolean shipNotOneMastedAndWithoutWay() {
+		return (ship.getNumberOfMasts() != 1 && ship.getWay() == Ship.SHIP_WAY_NO_SPACE);
+	}
+	
+	private static boolean checkPlaceStart(Coordinates coordinates) {
+		sumCheckWay = 0;
+		loopToCheckThePlace(coordinates, CheckData.checkWayX);
+		loopToCheckThePlace(coordinates, CheckData.checkWayY);
+		return checkWay();
 	}
 
 	private static void loopToCheckThePlace(Coordinates coordinates, int checkNextXorY) {
@@ -49,8 +57,8 @@ public class CheckData {
 	private static boolean startCheckingFromTheExtremePoint(Coordinates coordinates, int checkNextXorY, int i) {
 		int extremePoint = (-ship.getNumberOfMasts()) + i;
 		for (; extremePoint <= 0; extremePoint++) {
-			if (checkTheBoxesNextXY(coordinates, checkNextXorY, extremePoint)) {
-				sumWay += checkNextXorY;
+			if (checkWillTheShipFitFromExtremePoint(coordinates, checkNextXorY, extremePoint)) {
+				sumCheckWay += checkNextXorY;
 				return true;
 			}
 		}
@@ -58,11 +66,11 @@ public class CheckData {
 		return false;
 	}
 
-	private static boolean checkTheBoxesNextXY(Coordinates coordinates, int checkNextXorY, int extremePoint) {
+	private static boolean checkWillTheShipFitFromExtremePoint(Coordinates coordinates, int checkNextXorY, int extremePoint) {
 		int counterMasts = 0;
 		for (int k = 0; k < ship.getNumberOfMasts(); k++) {
-			int shiftOnTheAxis = k + extremePoint;
-			if (checkTheBoxesNext(coordinates, checkNextXorY, shiftOnTheAxis))
+			int mast = k + extremePoint;
+			if (checkCanYouPutAMast(coordinates, checkNextXorY, mast))
 				counterMasts++;	
 			else
 				break;
@@ -70,11 +78,11 @@ public class CheckData {
 		return counterMasts == ship.getNumberOfMasts();
 	}
 
-	private static boolean checkTheBoxesNext(Coordinates coordinates, int checkNextXorY, int shiftOnTheAxis) {
+	private static boolean checkCanYouPutAMast(Coordinates coordinates, int checkNextXorY, int shiftOnTheAxis) {
 		int addedToX = 0;
 		int addedToY = 0;
 
-		if (checkNextXorY == CheckData.checkAxisX) {
+		if (checkNextXorY == CheckData.checkWayX) {
 			addedToX = shiftOnTheAxis;
 		} else {
 			addedToY = shiftOnTheAxis;
@@ -90,7 +98,7 @@ public class CheckData {
 	}
 
 	private static boolean checkWay() {
-		switch (sumWay) {
+		switch (sumCheckWay) {
 		case 0:
 			ship.setWay(Ship.SHIP_WAY_NO_SPACE);
 			return false;
