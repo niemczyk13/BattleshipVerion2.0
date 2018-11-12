@@ -21,6 +21,7 @@ public class BorderManagement {
 
 	public void startNewGameWithVirtualPlayer() {
 		cleanBorders();
+		myBorder.setDisable(false);
 		opponentBorder.setDisable(true);
 	}
 

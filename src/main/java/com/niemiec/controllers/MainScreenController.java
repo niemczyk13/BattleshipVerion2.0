@@ -618,8 +618,7 @@ public class MainScreenController {
 
 	@FXML
 	void initialize() {
-		gameLogic = new GameLogic(myBorder, opponentBorder);
-		gameLogic.startNewGameWithVirtualPlayer();
+		startGame();
 	}
 
 
@@ -652,6 +651,7 @@ public class MainScreenController {
 
 	@FXML
 	public void startGame() {
+		gameLogic = new GameLogic(myBorder, opponentBorder);
 		gameLogic.startNewGameWithVirtualPlayer();
 	}
 
