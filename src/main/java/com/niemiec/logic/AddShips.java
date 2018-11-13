@@ -100,7 +100,6 @@ public class AddShips {
 	}
 
 	private boolean checkDataAddingTheMast() {
-		// TODO Auto-generated method stub
 		CheckData.setVariablesToCheckData(players[actualPlayer].getBoard(), ship);
 		 if (!CheckData.checkIfBoxIsEmpty(coordinates)) return false;
 		 if (!CheckData.checkIfAroundOneIsEmpty(coordinates)) return false;
