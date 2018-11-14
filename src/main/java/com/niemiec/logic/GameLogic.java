@@ -29,6 +29,8 @@ public class GameLogic {
 		if (automaticallySpacingOfShips) {
 			addShips.addShipsAutomatically(Player.REAL_PLAYER);
 			borderManagement.realPlayerAddedShipsAutomatically();
+			borderManagement.setBordersToStartShot();
+			borderManagement.drawInMyBorder(realPlayer);
 		}
 	}
 	
