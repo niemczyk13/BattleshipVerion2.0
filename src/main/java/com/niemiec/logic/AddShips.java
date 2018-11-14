@@ -33,8 +33,8 @@ public class AddShips {
 	}
 
 	public boolean addShipsManually(int typeOfPlayer, ActionEvent event) {
-		setActualTypeOfPlayer(typeOfPlayer);
 		setInitionalConditionsIfStartAdding();
+		setActualTypeOfPlayer(typeOfPlayer);
 		getCoordinatesFromButton((Button) event.getSource());
 		addShips();
 
@@ -42,6 +42,8 @@ public class AddShips {
 	}
 
 	public boolean addShipsAutomatically(int typeOfPlayer) {
+		setInitionalConditionsIfStartAdding();
+		setActualTypeOfPlayer(typeOfPlayer);
 		while (!conditionOfTheEndOfAddingShips()) {
 			coordinates = creatorAutomaticallyData.downloadCoordinatesWhenAddShip(ship, currentMast);
 			addShips();

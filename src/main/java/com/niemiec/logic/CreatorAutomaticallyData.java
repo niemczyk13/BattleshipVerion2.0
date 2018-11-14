@@ -41,8 +41,27 @@ public class CreatorAutomaticallyData {
 	}
 
 	private Coordinates randomTheReamainingMasts(Ship ship, int currentMast) {
-		// TODO Auto-generated method stub
-		return null;
+		int side = random.nextInt(2);
+		Coordinates coordinates = new Coordinates();
+		int x = ship.getCoordinates(1).getX();
+		int y = ship.getCoordinates(1).getY();
+		
+		if (ship.getDirection() == 1) {
+			coordinates.setY(y);
+			if (side == 1 && (x - 1) > 0) {
+				coordinates.setX(x - 1);
+			} else if (side == 0 && (x + ship.getCurrentNumberOfMasts()) <= 10) {
+				coordinates.setX(x + ship.getCurrentNumberOfMasts());
+			}
+		} else if (ship.getDirection() == 2) {
+			coordinates.setX(x);
+			if (side == 1 && (y - 1) > 0) {
+				coordinates.setY(y - 1);
+			} else if (side == 0 && (y + ship.getCurrentNumberOfMasts()) <= 10) {
+				coordinates.setY(y + ship.getCurrentNumberOfMasts());
+			}
+		}
+		return coordinates;
 	}
 
 	private Coordinates randomTheSecondMast(Ship ship) {

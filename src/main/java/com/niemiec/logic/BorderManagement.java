@@ -26,22 +26,26 @@ public class BorderManagement {
 	}
 
 	private void cleanBorders() {
-		drawInMyBorderButton(myBorder.getChildren(), null);
-		drawInMyBorderButton(opponentBorder.getChildren(), null);
+		drawInBorderButton(myBorder.getChildren(), null);
+		drawInBorderButton(opponentBorder.getChildren(), null);
 	}
 	
 	public void drawInMyBorder(Player player) {
-		drawInMyBorderButton(myBorder.getChildren(), player);
+		drawInBorderButton(myBorder.getChildren(), player);
 	}
 	
-	private void drawInMyBorderButton(ObservableList<Node> obervableList, Player player) {
+	public void drawInOpponentBorder(Player player) {
+		drawInBorderButton(opponentBorder.getChildren(), player);
+	}
+	
+	private void drawInBorderButton(ObservableList<Node> obervableList, Player player) {
 		for (int y = 0; y < 10; y++) {	
 			HBox hbox = (HBox) obervableList.get(y);
-			drawInMyBorderXAxis(y, hbox, player);		
+			drawInBorderXAxis(y, hbox, player);		
 		}
 	}
 
-	private void drawInMyBorderXAxis(int y, HBox hbox, Player player) {
+	private void drawInBorderXAxis(int y, HBox hbox, Player player) {
 		for (int x = 0; x < 10; x++) {
 			Coordinates coordinates = new Coordinates(x + 1, y + 1);
 			Button button = (Button) hbox.getChildren().get(x);

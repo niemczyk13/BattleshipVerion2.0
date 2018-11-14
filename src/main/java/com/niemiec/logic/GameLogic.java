@@ -24,7 +24,8 @@ public class GameLogic {
 	public void startNewGameWithVirtualPlayer() {
 		managePlayers();
 		borderManagement.startNewGameWithVirtualPlayer();
-//		addShips.addShipsAutomatically(Player.VIRTUAL_PLAYER);
+		addShips.addShipsAutomatically(Player.VIRTUAL_PLAYER);
+		borderManagement.drawInOpponentBorder(virtualPlayer);
 		if (automaticallySpacingOfShips) {
 			addShips.addShipsAutomatically(Player.REAL_PLAYER);
 			borderManagement.realPlayerAddedShipsAutomatically();
