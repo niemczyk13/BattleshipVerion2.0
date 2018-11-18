@@ -655,8 +655,5 @@ public class MainScreenController {
 		gameLogic.startNewGameWithVirtualPlayer();
 	}
 
-//	private int randomStart() {
-//		Random random = new Random();
-//		return random.nextInt(2);
-//	}
+
 }

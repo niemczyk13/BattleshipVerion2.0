@@ -80,7 +80,7 @@ public class Ship {
 		this.currentNumberOfHitMasts++;
 	}
 
-	public void hit() {
+	public void shipWasHit() {
 		this.currentNumberOfHitMasts++;
 		setSunk();
 	}

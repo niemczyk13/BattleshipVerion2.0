@@ -1,5 +1,7 @@
 package com.niemiec.logic;
 
+import com.niemiec.data.check.CheckData;
+import com.niemiec.data.create.automatically.CreatorAutomaticallyData;
 import com.niemiec.objects.Board;
 import com.niemiec.objects.Coordinates;
 import com.niemiec.objects.Player;
@@ -151,9 +153,6 @@ public class AddShips {
 	}
 
 	private void getCoordinatesFromButton(Button button) {
-		String id = button.getId();
-		char[] chars = new char[2];
-		id.getChars(2, 4, chars, 0);
-		coordinates = new Coordinates(Character.getNumericValue(chars[0]) + 1, Character.getNumericValue(chars[1]) + 1);
+		coordinates = CheckData.getCoordinatesFromButton(button);
 	}
 }

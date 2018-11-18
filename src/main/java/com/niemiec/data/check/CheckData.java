@@ -1,8 +1,10 @@
-package com.niemiec.logic;
+package com.niemiec.data.check;
 
 import com.niemiec.objects.Board;
 import com.niemiec.objects.Coordinates;
 import com.niemiec.objects.Ship;
+
+import javafx.scene.control.Button;
 
 public class CheckData {
 	private static final int checkWayX = 1;
@@ -17,18 +19,8 @@ public class CheckData {
 		return false;
 	}
 
-	public static boolean checkIfAroundOneIsEmpty(Coordinates coordinates) {
-		for (int i = -1; i < 2; i++) {
-			for (int j = -1; j < 2; j++) {
-				if (itsEmptyNextTo(coordinates, i, j))
-					return false;
-			}
-		}
-		return true;
-	}
-
 	public static boolean checkIsThereAPlace(Coordinates coordinates) {
-		if (shipNotOneMastedAndWithoutWay()) {
+		if (shipNotOneMastedAndWithoutDirection()) {
 			return checkPlaceStart(coordinates);
 		} else {
 			return true;
@@ -80,8 +72,7 @@ public class CheckData {
 			int changeStaticCoordinate) {
 		int rightAndDown = 1;
 		int LeftAndTop = -1;
-		return (((changeCoordinate - coordinate) == rightAndDown
-				|| (changeCoordinate - coordinate) == LeftAndTop)
+		return (((changeCoordinate - coordinate) == rightAndDown || (changeCoordinate - coordinate) == LeftAndTop)
 				&& (changeStaticCoordinate - staticCoordinate) == 0);
 	}
 
@@ -94,7 +85,7 @@ public class CheckData {
 				&& ship.getDirection() != Ship.SHIP_DIRECTION_NO_SPACE);
 	}
 
-	private static boolean shipNotOneMastedAndWithoutWay() {
+	private static boolean shipNotOneMastedAndWithoutDirection() {
 		return (ship.getNumberOfMasts() != 1 && ship.getDirection() == Ship.SHIP_DIRECTION_NO_SPACE);
 	}
 
@@ -175,9 +166,37 @@ public class CheckData {
 		}
 	}
 
-	private static boolean itsEmptyNextTo(Coordinates coordinates, int i, int j) {
-		if (!ijEqualsZero(i, j) && (checkIfWithinThePlayingField(coordinates, i, j)
-				&& itsEqualsArgNextTo(coordinates, i, j, Board.BOX_SHIP)))
+	public static boolean checkIfAroundOneIsEmptyWhenShot(Coordinates coordinates) {
+		for (int i = -1; i < 2; i++) {
+			for (int j = -1; j < 2; j++) {
+				if (itsEmptyNextToWhenShot(coordinates, i, j))
+					return false;
+			}
+		}
+		return true;
+	}
+
+	private static boolean itsEmptyNextToWhenShot(Coordinates coordinates, int x, int y) {
+		if (!ijEqualsZero(x, y) && (checkIfWithinThePlayingField(coordinates, x, y)
+				&& !itsEqualsArgNextTo(coordinates, x, y, Board.BOX_SHIP)))
+			return true;
+		else
+			return false;
+	}
+
+	public static boolean checkIfAroundOneIsEmpty(Coordinates coordinates) {
+		for (int i = -1; i < 2; i++) {
+			for (int j = -1; j < 2; j++) {
+				if (itsEmptyNextTo(coordinates, i, j))
+					return false;
+			}
+		}
+		return true;
+	}
+
+	private static boolean itsEmptyNextTo(Coordinates coordinates, int x, int y) {
+		if (!ijEqualsZero(x, y) && (checkIfWithinThePlayingField(coordinates, x, y)
+				&& itsEqualsArgNextTo(coordinates, x, y, Board.BOX_SHIP)))
 			return true;
 		else
 			return false;
@@ -187,8 +206,8 @@ public class CheckData {
 		return (i == 0 && j == 0);
 	}
 
-	private static boolean itsEqualsArgNextTo(Coordinates coordinates, int i, int j, int boxForCheck) {
-		Coordinates c = new Coordinates(coordinates.getX() + i, coordinates.getY() + j);
+	private static boolean itsEqualsArgNextTo(Coordinates coordinates, int x, int y, int boxForCheck) {
+		Coordinates c = new Coordinates(coordinates, x, y);
 		return checkIfTheFieldIsEquals(c, boxForCheck);
 	}
 
@@ -219,5 +238,16 @@ public class CheckData {
 	public static void setVariablesToCheckData(Board board, Ship ship) {
 		CheckData.board = board;
 		CheckData.ship = ship;
+	}
+
+	public static void setVariablesToCheckData(Board board) {
+		CheckData.board = board;
+	}
+
+	public static Coordinates getCoordinatesFromButton(Button button) {
+		String id = button.getId();
+		char[] chars = new char[2];
+		id.getChars(2, 4, chars, 0);
+		return new Coordinates(Character.getNumericValue(chars[0]) + 1, Character.getNumericValue(chars[1]) + 1);
 	}
 }

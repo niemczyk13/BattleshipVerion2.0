@@ -1,18 +1,29 @@
 package com.niemiec.objects;
 
 public class PlayerImpl implements Player {
+	private int typeOfPlayer;
 	private Board board;
 	private Board opponentBoard;
 	private int sunkenShips;
 	private CollectionShips collectionShips;
-	private int typeOflPlayer;
+	private boolean onHit;
+	private Coordinates coordinatesOnHit;
+	private int directionOnHit;
 
 	public PlayerImpl(int typeOfPlayer) {
 		this.board = new Board();
 		this.opponentBoard = new Board();
 		this.collectionShips = new CollectionShips();
-		this.typeOflPlayer = typeOfPlayer;
+		this.typeOfPlayer = typeOfPlayer;
 		this.sunkenShips = 0;
+		resetHitData();
+
+	}
+
+	public void resetHitData() {
+		onHit = false;
+		coordinatesOnHit = new Coordinates();
+		directionOnHit = Ship.SHIP_DIRECTION_NO_SPACE; 
 	}
 
 	public Board getBoard() {
@@ -39,15 +50,25 @@ public class PlayerImpl implements Player {
 		return collectionShips;
 	}
 
-//	@Override
-//	public void addShips() {
-//		ShipsCreator shipsCreator = new ShipsCreator(isVirtualPlayer(), collectionShips);
-//		shipsCreator.addShips(isVirtualPlayer(), collectionShips);
-//	}
-
 	@Override
 	public boolean isVirtualPlayer() {
-		return (typeOflPlayer == Player.VIRTUAL_PLAYER) ? true : false;
+		return (typeOfPlayer == Player.VIRTUAL_PLAYER) ? true : false;
+	}
+
+	@Override
+	public boolean getInformationInThePlayerIsVirtual() {
+		if (typeOfPlayer == Player.VIRTUAL_PLAYER)
+			return true;
+		return false;
+	}
+
+	public void setHitData(Coordinates coordinates) {
+		onHit = true;
+		coordinatesOnHit = new Coordinates(coordinates);
+	}
+	
+	public boolean isOnHit() {
+		return onHit;
 	}
 
 }

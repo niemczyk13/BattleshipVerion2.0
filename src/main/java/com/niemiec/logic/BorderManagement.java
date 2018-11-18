@@ -1,5 +1,6 @@
 package com.niemiec.logic;
 
+import com.niemiec.objects.Board;
 import com.niemiec.objects.Coordinates;
 import com.niemiec.objects.Player;
 
@@ -30,34 +31,42 @@ public class BorderManagement {
 		drawInBorderButton(opponentBorder.getChildren(), null);
 	}
 	
-	public void drawInMyBorder(Player player) {
-		drawInBorderButton(myBorder.getChildren(), player);
+	public void drawOpponentBoardInMyBorder(Player player) {
+		drawInBorderButton(myBorder.getChildren(), player.getOpponentBoard());
 	}
 	
-	public void drawInOpponentBorder(Player player) {
-		drawInBorderButton(opponentBorder.getChildren(), player);
+	public void drawOpponentBoardInOpponentBorder(Player player) {
+		drawInBorderButton(opponentBorder.getChildren(), player.getOpponentBoard());
 	}
 	
-	private void drawInBorderButton(ObservableList<Node> obervableList, Player player) {
+	public void drawBoardInMyBorder(Player player) {
+		drawInBorderButton(myBorder.getChildren(), player.getBoard());
+	}
+	
+	public void drawBoardInOpponentBorder(Player player) {
+		drawInBorderButton(opponentBorder.getChildren(), player.getBoard());
+	}
+	
+	private void drawInBorderButton(ObservableList<Node> obervableList, Board board) {
 		for (int y = 0; y < 10; y++) {	
 			HBox hbox = (HBox) obervableList.get(y);
-			drawInBorderXAxis(y, hbox, player);		
+			drawInBorderXAxis(y, hbox, board);		
 		}
 	}
 
-	private void drawInBorderXAxis(int y, HBox hbox, Player player) {
+	private void drawInBorderXAxis(int y, HBox hbox, Board board) {
 		for (int x = 0; x < 10; x++) {
 			Coordinates coordinates = new Coordinates(x + 1, y + 1);
 			Button button = (Button) hbox.getChildren().get(x);
-			drawInButton(button, player, coordinates);		
+			drawInButton(button, board, coordinates);		
 		}
 	}
 
-	private void drawInButton(Button button, Player player, Coordinates coordinates) {
-		if (player == null) {
+	private void drawInButton(Button button, Board board, Coordinates coordinates) {
+		if (board == null) {
 			button.setText("");
 		} else {
-			int box = player.getBoard().getBox(coordinates);
+			int box = board.getBox(coordinates);
 			button.setText((box != 0) ? Integer.toString(box) : "");
 		}
 	}
@@ -69,6 +78,11 @@ public class BorderManagement {
 
 	public void realPlayerAddedShipsAutomatically() {
 		myBorder.setDisable(true);
+	}
+
+	public void setBordersToEndGame() {
+		myBorder.setDisable(true);
+		opponentBorder.setDisable(true);
 	}
 	
 }
