@@ -8,7 +8,8 @@ import com.niemiec.objects.Player;
 import com.niemiec.objects.PlayerImpl;
 
 public class CreatorAutomaticallyShotData extends CreatorAutomaticallyData {
-	
+	private final int directionX = 0;
+	private final int directionY = 1;
 	private PlayerImpl players[];
 //	private Board board;
 	
@@ -20,15 +21,18 @@ public class CreatorAutomaticallyShotData extends CreatorAutomaticallyData {
 	}
 
 	public Coordinates downloadShotFromVirtualPlayer(int activePlayer) {
+//		CheckShotData.setVariablesToCheckShotData(players[activePlayer].getOpponentBoard());
 		CheckData.setVariablesToCheckData(players[activePlayer].getOpponentBoard());
 		if (players[activePlayer].isOnHit()) {
-			return nextMoveVirtualPlayer(players, activePlayer);
+			return nextMoveVirtualPlayer(activePlayer);
 		}
 		return firstMoveVirtualPlayer(activePlayer);
 	}
 
-	private Coordinates nextMoveVirtualPlayer(PlayerImpl[] players2, int activePlayer) {
-		// TODO Auto-generated method stub
+	private Coordinates nextMoveVirtualPlayer(int activePlayer) {
+		PlayerImpl vp = players[activePlayer];
+		// TODO dokończyć
+//		if (vp.getDirectionOnHit() == )
 		return null;
 	}
 
@@ -45,7 +49,6 @@ public class CreatorAutomaticallyShotData extends CreatorAutomaticallyData {
 	private boolean willTheShipFit(Coordinates coordinates, int activePlayer) {
 		int opponentPlayer = getIndexOpponentPlayer(activePlayer);
 		int minimalNumberOfMasts = getMinimalNmberOfMastsFromNotHitShips(opponentPlayer);
-		System.out.println(minimalNumberOfMasts);
 		
 		return CheckShotData.checkIsThereAPlaceWhenShot(coordinates, minimalNumberOfMasts);
 	}

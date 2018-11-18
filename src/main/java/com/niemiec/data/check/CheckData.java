@@ -166,24 +166,6 @@ public class CheckData {
 		}
 	}
 
-	public static boolean checkIfAroundOneIsEmptyWhenShot(Coordinates coordinates) {
-		for (int i = -1; i < 2; i++) {
-			for (int j = -1; j < 2; j++) {
-				if (itsEmptyNextToWhenShot(coordinates, i, j))
-					return false;
-			}
-		}
-		return true;
-	}
-
-	private static boolean itsEmptyNextToWhenShot(Coordinates coordinates, int x, int y) {
-		if (!ijEqualsZero(x, y) && (checkIfWithinThePlayingField(coordinates, x, y)
-				&& !itsEqualsArgNextTo(coordinates, x, y, Board.BOX_SHIP)))
-			return true;
-		else
-			return false;
-	}
-
 	public static boolean checkIfAroundOneIsEmpty(Coordinates coordinates) {
 		for (int i = -1; i < 2; i++) {
 			for (int j = -1; j < 2; j++) {

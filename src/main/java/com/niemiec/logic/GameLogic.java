@@ -19,11 +19,12 @@ public class GameLogic {
 	public GameLogic(VBox myBorder, VBox opponentBorder) {
 		this.borderManagement = new BorderManagement(myBorder, opponentBorder);
 		this.automaticallySpacingOfShips = false;
-		this.addShips = new AddShips();
-		this.shotShip = new ShotShip();
+		
 	}
 
 	public void startNewGameWithVirtualPlayer() {
+		this.addShips = new AddShips();
+		this.shotShip = new ShotShip();
 		createPlayers();
 		addShips.addPlayers(realPlayer, virtualPlayer);
 		borderManagement.startNewGameWithVirtualPlayer();

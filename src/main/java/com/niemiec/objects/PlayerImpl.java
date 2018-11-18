@@ -71,4 +71,14 @@ public class PlayerImpl implements Player {
 		return onHit;
 	}
 
+	public int getDirectionOnHit() {
+		return directionOnHit;
+	}
+
+	public void setDirectionOnHit(int directionOnHit) {
+		this.directionOnHit = directionOnHit;
+	}
+	
+	
+
 }

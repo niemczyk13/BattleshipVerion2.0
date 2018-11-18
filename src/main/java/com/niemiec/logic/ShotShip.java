@@ -18,16 +18,16 @@ public class ShotShip {
 	private BorderManagement borderManagement;
 	private boolean gameEnd;
 	private int winner;
-	PlayerImpl[] players;
+	private PlayerImpl[] players;
 
 	public void setInitialData(BorderManagement borderManagement, PlayerImpl realPlayer, PlayerImpl virtualPlayer) {
-		this.creatorAutomaticallyShotData = new CreatorAutomaticallyShotData(players);
 		this.borderManagement = borderManagement;
 		this.players = new PlayerImpl[2];
 		players[Player.REAL_PLAYER] = realPlayer;
 		players[Player.VIRTUAL_PLAYER] = virtualPlayer;
 		this.gameEnd = false;
 		this.winner = -1;
+		this.creatorAutomaticallyShotData = new CreatorAutomaticallyShotData(players);
 	}
 
 	public ShotShip() {
@@ -48,9 +48,8 @@ public class ShotShip {
 	private void shotVirtualPlayer() {
 		while (true) {
 			Coordinates coordinates = creatorAutomaticallyShotData.downloadShotFromVirtualPlayer(Player.VIRTUAL_PLAYER);
-			System.out.println("Coordinates = " + coordinates);
-//			if (!shotMast(coordinates, Player.VIRTUAL_PLAYER) || gameEnd)
-//				break;
+			if (!shotMast(coordinates, Player.VIRTUAL_PLAYER) || gameEnd)
+				break;
 			break;
 		}
 	}
@@ -58,14 +57,14 @@ public class ShotShip {
 	private boolean shotMast(Coordinates coordinates, int activePlayer) {
 		int opponentPlayer = getIndexOpponentPlayer(activePlayer);
 		if (checkWithTheOpponentBoardIfWasHit(coordinates, activePlayer)) {
-			borderManagement.drawBoardInOpponentBorder(players[opponentPlayer]);
+			borderManagement.drawBoardInOpponentBorder(players[Player.VIRTUAL_PLAYER]);
 //			borderManagement.drawOpponentBoardInOpponentBorder(players[activePlayer]);
-			borderManagement.drawOpponentBoardInMyBorder(players[Player.VIRTUAL_PLAYER]);
+			borderManagement.drawBoardInMyBorder(players[Player.REAL_PLAYER]);
 			return true;
 		}
-		borderManagement.drawBoardInOpponentBorder(players[opponentPlayer]);
+		borderManagement.drawBoardInOpponentBorder(players[Player.VIRTUAL_PLAYER]);
 //		borderManagement.drawOpponentBoardInOpponentBorder(players[activePlayer]);
-		borderManagement.drawOpponentBoardInMyBorder(players[Player.VIRTUAL_PLAYER]);
+		borderManagement.drawBoardInMyBorder(players[Player.REAL_PLAYER]);
 
 		return false;
 	}
@@ -73,7 +72,7 @@ public class ShotShip {
 	private boolean checkWithTheOpponentBoardIfWasHit(Coordinates coordinates, int activePlayer) {
 		int opponentPlayer = getIndexOpponentPlayer(activePlayer);
 		int box = getBoxFromPlayerBoard(coordinates, opponentPlayer);
-		
+
 		switch (box) {
 		case Board.BOX_EMPTY:
 			setBoxInToOpponentBoard(coordinates, Board.BOX_NOT_HIT, activePlayer);
@@ -90,7 +89,7 @@ public class ShotShip {
 		int opponentPlayer = getIndexOpponentPlayer(activePlayer);
 		shipWasHit(opponentPlayer, coordinates);
 		if (shipWasSunk(opponentPlayer, coordinates)) {
-			change3To5AndInsert1Around(activePlayer, coordinates);		
+			change3To5AndInsert1Around(activePlayer, coordinates);
 			ifActivePlayerIsVirtualResetTheHitData(activePlayer);
 			players[opponentPlayer].increaseSunkenShips();
 			checkIfWeHaveTheEndOfTheGame(activePlayer);
@@ -99,8 +98,7 @@ public class ShotShip {
 			setBoxInToPlayerBoard(coordinates, Board.BOX_HIT, opponentPlayer);
 			ifActivePlayerIsVirtualSetHitData(coordinates, activePlayer);
 		}
-		
-		
+
 	}
 
 	private void checkIfWeHaveTheEndOfTheGame(int activePlayer) {
@@ -213,7 +211,7 @@ public class ShotShip {
 	public String getWinnerName() {
 		if (winner == Player.REAL_PLAYER)
 			return "RealPlayer";
-		else 
+		else
 			return "VirtualPlayer";
 	}
 }
