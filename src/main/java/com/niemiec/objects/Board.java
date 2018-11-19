@@ -9,6 +9,7 @@ public class Board {
 	public static final int BOX_SHIP = 2;
 	public static final int BOX_HIT = 3;
 	public static final int BOX_ENTER = 4;
+	public static final int BOX_SUNK = 5;
 	
 	int[][] boxes;
 

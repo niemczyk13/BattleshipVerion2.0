@@ -79,6 +79,8 @@ public class PlayerImpl implements Player {
 		this.directionOnHit = directionOnHit;
 	}
 	
-	
+	public Coordinates getCoordinatesOnHit() {
+		return this.coordinatesOnHit;
+	}
 
 }

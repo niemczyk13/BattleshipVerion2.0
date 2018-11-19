@@ -5,8 +5,6 @@ import com.niemiec.objects.Coordinates;
 
 public class CheckShotData extends CheckData {
 	
-	private static Board board;
-	
 	public static boolean checkIsThereAPlaceWhenShot(Coordinates coordinates, int minimalNumberOfMasts) {
 		Coordinates c;
 		for (int i = 1; i <= minimalNumberOfMasts; i++) {
@@ -24,7 +22,6 @@ public class CheckShotData extends CheckData {
 	}
 
 	public static void setVariablesToCheckShotData(Board board) {
-		CheckShotData.board = board;
 		board.viewBoard();
 	}
 

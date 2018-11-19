@@ -3,20 +3,18 @@ package com.niemiec.data.create.automatically;
 import java.util.Random;
 
 import com.niemiec.data.check.CheckData;
-import com.niemiec.objects.Board;
 import com.niemiec.objects.Coordinates;
-import com.niemiec.objects.Player;
-import com.niemiec.objects.PlayerImpl;
 import com.niemiec.objects.Ship;
 
 public class CreatorAutomaticallyData {
-	private Random random;
+	protected Random random;
 	private final int firstMast = 1;
-	private final int directionY = 0;
-	private final int directionX = 1;
+	protected final int directionNotSelected = 0;
+	protected final int directionX = 1;
+	protected final int directionY = 2;
 
-	private final int rightAndDown = 0;
-	private final int leftAndTop = 1;
+	protected final int rightAndDown = 0;
+	protected final int leftAndTop = 1;
 
 	
 
@@ -70,7 +68,7 @@ public class CreatorAutomaticallyData {
 	}
 
 	private Coordinates randomTheSecondMast(Ship ship) {
-		int direction = random.nextInt(2);
+		int direction = random.nextInt(2) + 1;
 		return assignCoordinates(direction, ship);
 	}
 
@@ -117,6 +115,4 @@ public class CreatorAutomaticallyData {
 		int y = random.nextInt(10) + 1;
 		return new Coordinates(x, y);
 	}
-
-
 }

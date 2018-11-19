@@ -46,6 +46,7 @@ public class CollectionShips {
 		int index = getShipIndexFromBoard(coordinates);
 		Ship ship = ships[index - 1];
 		ship.shipWasHit();
+
 		updateMinimalNumberMastsOfNoHitShips();
 	}
 
@@ -78,7 +79,8 @@ public class CollectionShips {
 		}
 		Collections.sort(numberOfMastsFromNoSunkShips);
 		
-		minimalNumberMastsOfNoHitShips = numberOfMastsFromNoSunkShips.get(0);
+		if (!numberOfMastsFromNoSunkShips.isEmpty())
+			minimalNumberMastsOfNoHitShips = numberOfMastsFromNoSunkShips.get(0);
 		System.out.println(minimalNumberMastsOfNoHitShips);
 	}
 

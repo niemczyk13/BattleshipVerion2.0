@@ -50,20 +50,19 @@ public class ShotShip {
 			Coordinates coordinates = creatorAutomaticallyShotData.downloadShotFromVirtualPlayer(Player.VIRTUAL_PLAYER);
 			if (!shotMast(coordinates, Player.VIRTUAL_PLAYER) || gameEnd)
 				break;
-			break;
 		}
 	}
 
 	private boolean shotMast(Coordinates coordinates, int activePlayer) {
-		int opponentPlayer = getIndexOpponentPlayer(activePlayer);
+
 		if (checkWithTheOpponentBoardIfWasHit(coordinates, activePlayer)) {
-			borderManagement.drawBoardInOpponentBorder(players[Player.VIRTUAL_PLAYER]);
-//			borderManagement.drawOpponentBoardInOpponentBorder(players[activePlayer]);
+//			borderManagement.drawBoardInOpponentBorder(players[Player.VIRTUAL_PLAYER]);
+			borderManagement.drawOpponentBoardInOpponentBorder(players[Player.REAL_PLAYER]);
 			borderManagement.drawBoardInMyBorder(players[Player.REAL_PLAYER]);
 			return true;
 		}
-		borderManagement.drawBoardInOpponentBorder(players[Player.VIRTUAL_PLAYER]);
-//		borderManagement.drawOpponentBoardInOpponentBorder(players[activePlayer]);
+//		borderManagement.drawBoardInOpponentBorder(players[Player.VIRTUAL_PLAYER]);
+		borderManagement.drawOpponentBoardInOpponentBorder(players[Player.REAL_PLAYER]);
 		borderManagement.drawBoardInMyBorder(players[Player.REAL_PLAYER]);
 
 		return false;
@@ -119,8 +118,8 @@ public class ShotShip {
 	}
 
 	private void change3To5AndInsert1Around(int activePlayer, Coordinates coordinates) {
-		check3To5InBoard(activePlayer, coordinates);
 		insetr1AroundHitShip(activePlayer, coordinates);
+		check3To5InBoard(activePlayer, coordinates);		
 	}
 
 	private void insetr1AroundHitShip(int activePlayer, Coordinates coordinates) {
@@ -156,8 +155,8 @@ public class ShotShip {
 		Ship ship = players[opponentPlayer].getCollectionShips().getShip(coordinates);
 		for (int i = 1; i <= ship.getNumberOfMasts(); i++) {
 			Coordinates c = ship.getCoordinates(i);
-			setBoxInToOpponentBoard(c, 5, activePlayer);
-			setBoxInToPlayerBoard(c, 5, opponentPlayer);
+			setBoxInToOpponentBoard(c, Board.BOX_SUNK, activePlayer);
+			setBoxInToPlayerBoard(c, Board.BOX_SUNK, opponentPlayer);
 		}
 	}
 
@@ -189,10 +188,6 @@ public class ShotShip {
 
 	private int getBoxFromPlayerBoard(Coordinates coordinates, int typeOfPlayer) {
 		return players[typeOfPlayer].getBoard().getBox(coordinates);
-	}
-
-	private int getBoxFromOpponentBoard(Coordinates coordinates, int typeOfPlayer) {
-		return players[typeOfPlayer].getOpponentBoard().getBox(coordinates);
 	}
 
 	public void firstShotInTheGame() {
