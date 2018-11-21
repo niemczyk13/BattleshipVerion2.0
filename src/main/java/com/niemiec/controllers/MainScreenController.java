@@ -1,9 +1,14 @@
 package com.niemiec.controllers;
 
+import com.niemiec.logic.BorderManagement;
+import com.niemiec.logic.Exit;
 import com.niemiec.logic.GameLogic;
+import com.niemiec.logic.Open;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.layout.VBox;
 
 public class MainScreenController {
@@ -614,18 +619,27 @@ public class MainScreenController {
 	@FXML
 	private Button ob99;
 
+	@FXML
+	private CheckMenuItem automaticallySpacingOfShipsButton;
+
 	private GameLogic gameLogic;
+	private Exit exit;
 
 	@FXML
 	void initialize() {
-		gameLogic = new GameLogic(myBorder, opponentBorder);
-		startGame();
+		BorderManagement.setBorders(myBorder, opponentBorder);
+		gameLogic = Open.downloadDataFromSaveFile();
+		if (gameLogic == null || !gameLogic.getSaveGame()) {
+			gameLogic = new GameLogic(myBorder, opponentBorder);
+			startGame();
+		} else {
+			gameLogic.startGameAfterSave();
+			automaticallySpacingOfShipsButton.setSelected(gameLogic.getAutomaticallySpacingOfShips());
+		}
 	}
-
 
 	public MainScreenController() {
 	}
-
 
 	@FXML
 	void myButtonAction(ActionEvent event) {
@@ -639,8 +653,13 @@ public class MainScreenController {
 
 	@FXML
 	void close() {
-
-	} 
+		if (gameLogic.getTheGameWasStarted()) {
+			exit = new Exit(gameLogic);
+			exit.orClose();
+		} else {
+			System.exit(0);
+		}
+	}
 
 	@FXML
 	void setAutomaticallySpacingOfShips() {
@@ -652,9 +671,6 @@ public class MainScreenController {
 
 	@FXML
 	public void startGame() {
-//		gameLogic = new GameLogic(myBorder, opponentBorder);
 		gameLogic.startNewGameWithVirtualPlayer();
 	}
-
-
 }

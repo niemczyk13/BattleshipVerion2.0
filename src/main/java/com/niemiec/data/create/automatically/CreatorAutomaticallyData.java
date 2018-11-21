@@ -1,12 +1,14 @@
 package com.niemiec.data.create.automatically;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import com.niemiec.data.check.CheckData;
 import com.niemiec.objects.Coordinates;
 import com.niemiec.objects.Ship;
 
-public class CreatorAutomaticallyData {
+@SuppressWarnings("serial")
+public class CreatorAutomaticallyData implements Serializable  {
 	protected Random random;
 	private final int firstMast = 1;
 	protected final int directionNotSelected = 0;

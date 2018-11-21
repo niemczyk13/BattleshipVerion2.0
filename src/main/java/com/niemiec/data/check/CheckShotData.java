@@ -1,6 +1,5 @@
 package com.niemiec.data.check;
 
-import com.niemiec.objects.Board;
 import com.niemiec.objects.Coordinates;
 
 public class CheckShotData extends CheckData {
@@ -21,10 +20,6 @@ public class CheckShotData extends CheckData {
 		return false;
 	}
 
-	public static void setVariablesToCheckShotData(Board board) {
-		board.viewBoard();
-	}
-
 	private static boolean checkTheBoxesNextX(Coordinates coordinates, int minimalNumberOfMasts) {
 		int counter = 0;
 		Coordinates c;
@@ -38,14 +33,11 @@ public class CheckShotData extends CheckData {
 				return false;
 			}
 		}
-		// TODO
 		if (counter == minimalNumberOfMasts)
 			return true;
 		return false;
 	}
 
-
-//
 	private static boolean checkTheBoxesNextY(Coordinates coordinates, int minimalNumberOfMasts) {
 		int counter = 0;
 		Coordinates c;
@@ -59,7 +51,6 @@ public class CheckShotData extends CheckData {
 				return false;
 			}
 		}
-		// TODO
 		if (counter == minimalNumberOfMasts)
 			return true;
 		return false;

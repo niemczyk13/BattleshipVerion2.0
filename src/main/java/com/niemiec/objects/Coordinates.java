@@ -1,7 +1,10 @@
 package com.niemiec.objects;
 
+import java.io.Serializable;
+
 //współrzędne
-public class Coordinates {
+@SuppressWarnings("serial")
+public class Coordinates implements Serializable  {
 	private int x;
 	private int y;
 

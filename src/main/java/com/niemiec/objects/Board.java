@@ -1,16 +1,19 @@
 package com.niemiec.objects;
 
+import java.io.Serializable;
+
 //W tej klasie zamieniamy dane wprowadzane na dane tablicowe
 //W grze pole 1,1 to w tablicy 0,0
 //Board - tablica
-public class Board {
+@SuppressWarnings("serial")
+public class Board implements Serializable {
 	public static final int BOX_EMPTY = 0;
 	public static final int BOX_NOT_HIT = 1;
 	public static final int BOX_SHIP = 2;
 	public static final int BOX_HIT = 3;
 	public static final int BOX_ENTER = 4;
 	public static final int BOX_SUNK = 5;
-	
+
 	int[][] boxes;
 
 	public Board() {

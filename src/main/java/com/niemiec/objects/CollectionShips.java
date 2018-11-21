@@ -1,11 +1,13 @@
 package com.niemiec.objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 //Zarz�dzanie tablic� statk�w
-public class CollectionShips {
+@SuppressWarnings("serial")
+public class CollectionShips  implements Serializable {
 	private Ship[] ships;
 	private int currentlyNumberOfShips;
 	// w tej tablicy przechwywane b�d� indeksy statk�w - numer w tablicy ships
@@ -81,7 +83,6 @@ public class CollectionShips {
 		
 		if (!numberOfMastsFromNoSunkShips.isEmpty())
 			minimalNumberMastsOfNoHitShips = numberOfMastsFromNoSunkShips.get(0);
-		System.out.println(minimalNumberMastsOfNoHitShips);
 	}
 
 	public int getMinimalNumberMastsOfNoHitShips() {

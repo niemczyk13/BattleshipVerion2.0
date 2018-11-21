@@ -1,5 +1,7 @@
 package com.niemiec.logic;
 
+import java.io.Serializable;
+
 import com.niemiec.data.check.CheckData;
 import com.niemiec.data.create.automatically.CreatorAutomaticallyData;
 import com.niemiec.objects.Board;
@@ -10,7 +12,8 @@ import com.niemiec.objects.Ship;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
-public class AddShips {
+@SuppressWarnings("serial")
+public class AddShips implements Serializable {
 
 	private Player[] players;
 	private int actualPlayer;
@@ -66,10 +69,10 @@ public class AddShips {
 
 	private void checkIfTheShipHasBeenAdded() {
 		if (hasAllMastsBeenAdded()) {
-			updateData();	
+			updateData();
 		}
 	}
-	
+
 	private void updateData() {
 		updatePlayer();
 		updateVariables();
@@ -105,10 +108,14 @@ public class AddShips {
 
 	private boolean checkDataAddingTheMast() {
 		CheckData.setVariablesToCheckData(players[actualPlayer].getBoard(), ship);
-		 if (!CheckData.checkIfBoxIsEmpty(coordinates)) return false;
-		 if (!CheckData.checkIfAroundOneIsEmpty(coordinates)) return false;
-		 if (!CheckData.checkIsThereAPlace(coordinates)) return false;
-		 if (!CheckData.checkIfTheNextIsTheGoodWay(coordinates)) return false;
+		if (!CheckData.checkIfBoxIsEmpty(coordinates))
+			return false;
+		if (!CheckData.checkIfAroundOneIsEmpty(coordinates))
+			return false;
+		if (!CheckData.checkIsThereAPlace(coordinates))
+			return false;
+		if (!CheckData.checkIfTheNextIsTheGoodWay(coordinates))
+			return false;
 		return true;
 	}
 
@@ -154,5 +161,9 @@ public class AddShips {
 
 	private void getCoordinatesFromButton(Button button) {
 		coordinates = CheckData.getCoordinatesFromButton(button);
+	}
+	
+	public boolean areShipsAdded() {
+		return conditionOfTheEndOfAddingShips();
 	}
 }

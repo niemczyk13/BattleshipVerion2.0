@@ -1,5 +1,6 @@
 package com.niemiec.logic;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import com.niemiec.data.check.CheckData;
@@ -13,15 +14,14 @@ import com.niemiec.objects.Ship;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
-public class ShotShip {
+@SuppressWarnings("serial")
+public class ShotShip implements Serializable  {
 	private CreatorAutomaticallyShotData creatorAutomaticallyShotData;
-	private BorderManagement borderManagement;
 	private boolean gameEnd;
 	private int winner;
 	private PlayerImpl[] players;
 
-	public void setInitialData(BorderManagement borderManagement, PlayerImpl realPlayer, PlayerImpl virtualPlayer) {
-		this.borderManagement = borderManagement;
+	public void setInitialData(PlayerImpl realPlayer, PlayerImpl virtualPlayer) {
 		this.players = new PlayerImpl[2];
 		players[Player.REAL_PLAYER] = realPlayer;
 		players[Player.VIRTUAL_PLAYER] = virtualPlayer;
@@ -56,14 +56,12 @@ public class ShotShip {
 	private boolean shotMast(Coordinates coordinates, int activePlayer) {
 
 		if (checkWithTheOpponentBoardIfWasHit(coordinates, activePlayer)) {
-//			borderManagement.drawBoardInOpponentBorder(players[Player.VIRTUAL_PLAYER]);
-			borderManagement.drawOpponentBoardInOpponentBorder(players[Player.REAL_PLAYER]);
-			borderManagement.drawBoardInMyBorder(players[Player.REAL_PLAYER]);
+			BorderManagement.drawOpponentBoardInOpponentBorder(players[Player.REAL_PLAYER]);
+			BorderManagement.drawBoardInMyBorder(players[Player.REAL_PLAYER]);
 			return true;
 		}
-//		borderManagement.drawBoardInOpponentBorder(players[Player.VIRTUAL_PLAYER]);
-		borderManagement.drawOpponentBoardInOpponentBorder(players[Player.REAL_PLAYER]);
-		borderManagement.drawBoardInMyBorder(players[Player.REAL_PLAYER]);
+		BorderManagement.drawOpponentBoardInOpponentBorder(players[Player.REAL_PLAYER]);
+		BorderManagement.drawBoardInMyBorder(players[Player.REAL_PLAYER]);
 
 		return false;
 	}

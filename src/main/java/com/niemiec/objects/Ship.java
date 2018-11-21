@@ -1,10 +1,12 @@
 package com.niemiec.objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Ship {
+@SuppressWarnings("serial")
+public class Ship implements Serializable  {
 	public static final int SHIP_DIRECTION_NO_SPACE = 0;
 	public static final int SHIP_DIRECTION_X = 1;
 	public static final int SHIP_DIRECTION_Y = 2;

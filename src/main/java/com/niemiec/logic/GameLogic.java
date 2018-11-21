@@ -1,5 +1,7 @@
 package com.niemiec.logic;
 
+import java.io.Serializable;
+
 import com.niemiec.objects.Player;
 import com.niemiec.objects.PlayerImpl;
 
@@ -8,32 +10,46 @@ import javafx.scene.layout.VBox;
 
 //przechowuje cały stan o aktualej grze
 //gdy zaczynamy grę na nowo to MainScreenController tworzy nowy obiekt
-public class GameLogic {
-	private BorderManagement borderManagement;
+
+@SuppressWarnings("serial")
+public class GameLogic implements Serializable {
+	private boolean saveGame;
 	private boolean automaticallySpacingOfShips;
+	private boolean theGameWasStarted;
 	private PlayerImpl realPlayer;
 	private PlayerImpl virtualPlayer;
 	private AddShips addShips;
 	private ShotShip shotShip;
 
 	public GameLogic(VBox myBorder, VBox opponentBorder) {
-		this.borderManagement = new BorderManagement(myBorder, opponentBorder);
 		this.automaticallySpacingOfShips = false;
-
+		this.saveGame = false;
+	}
+	
+	public void startGameAfterSave() {
+		if (automaticallySpacingOfShips) {
+			BorderManagement.setBordersToStartShot();
+		} else if (!addShips.areShipsAdded()) {
+			BorderManagement.startNewGameWithVirtualPlayer();
+		}
+		BorderManagement.drawBoardInMyBorder(realPlayer);
+		BorderManagement.drawOpponentBoardInOpponentBorder(realPlayer);
 	}
 
 	public void startNewGameWithVirtualPlayer() {
+		this.theGameWasStarted = false;
 		this.addShips = new AddShips();
 		this.shotShip = new ShotShip();
 		createPlayers();
 		addShips.addPlayers(realPlayer, virtualPlayer);
-		borderManagement.startNewGameWithVirtualPlayer();
-		shotShip.setInitialData(borderManagement, realPlayer, virtualPlayer);
+		BorderManagement.startNewGameWithVirtualPlayer();
+		shotShip.setInitialData(realPlayer, virtualPlayer);
 		addShips.addShipsAutomatically(Player.VIRTUAL_PLAYER);
 		if (automaticallySpacingOfShips) {
+			this.theGameWasStarted = true;
 			addShips.addShipsAutomatically(Player.REAL_PLAYER);
-			borderManagement.setBordersToStartShot();
-			borderManagement.drawBoardInMyBorder(realPlayer);
+			BorderManagement.setBordersToStartShot();
+			BorderManagement.drawBoardInMyBorder(realPlayer);
 			shotShip.firstShotInTheGame();
 		}
 	}
@@ -44,18 +60,19 @@ public class GameLogic {
 	}
 
 	public void addShips(ActionEvent event) {
+		this.theGameWasStarted = true;
 		if (addShips.addShipsManually(Player.REAL_PLAYER, event)) {
-			borderManagement.setBordersToStartShot();
+			BorderManagement.setBordersToStartShot();
 			shotShip.firstShotInTheGame();
 		}
-		borderManagement.drawBoardInMyBorder(realPlayer);
+		BorderManagement.drawBoardInMyBorder(realPlayer);
 	}
 
 	public void shot(ActionEvent event) {
 		if (shotShip.shot(event)) {
 			String winner = shotShip.getWinnerName();
 			System.out.println("Wygrywa gracz: " + winner);
-			borderManagement.setBordersToEndGame();
+			BorderManagement.setBordersToEndGame();
 		}
 	}
 
@@ -65,5 +82,17 @@ public class GameLogic {
 
 	public boolean getAutomaticallySpacingOfShips() {
 		return automaticallySpacingOfShips;
+	}
+	
+	public boolean getSaveGame() {
+		return this.saveGame;
+	}
+	
+	public void setSaveGame(boolean saveGame) {
+		this.saveGame = saveGame;
+	}
+	
+	public boolean getTheGameWasStarted() {
+		return this.theGameWasStarted;
 	}
 }

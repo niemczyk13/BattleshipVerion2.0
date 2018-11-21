@@ -1,6 +1,9 @@
 package com.niemiec.objects;
 
-public class PlayerImpl implements Player {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class PlayerImpl implements Player, Serializable {
 	private int typeOfPlayer;
 	private Board board;
 	private Board opponentBoard;
